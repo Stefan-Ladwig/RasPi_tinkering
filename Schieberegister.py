@@ -55,6 +55,9 @@ def dot_matrix(mat, on_time=0.01):
         write_val(row)
         time.sleep(on_time)
 
+def draw_frame():        
+        
+
 def show(b):
     if not b:
         on(switch)
