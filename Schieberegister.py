@@ -13,8 +13,16 @@ reset = 26
 rewire = [4, 2, 5, 12, 7, 10, 9, 6,
           0, 15, 14, 1, 8, 3, 13, 11]
 
+column_mat = np.identity(8)
+
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(0)
+
+def test_multiplex():
+    a = np.identity(8)
+    b = np.full(a.shape, 1)
+    c = b - a
+    draw_frame(c, on_time=1)
 
 def sigma(a):
     return [a[r] for r in rewire]
@@ -47,7 +55,7 @@ def write_val(values, commit=True):
         off(write)
         on(write)
 
-def dot_matrix(mat, on_time=0.01):
+def dot_matrix(mat, on_time=0.1):
     row = np.zeros(8)
     row[0] = 1
     for i in range(mat.shape[0]):
@@ -55,8 +63,10 @@ def dot_matrix(mat, on_time=0.01):
         write_val(row)
         time.sleep(on_time)
 
-def draw_frame():        
-        
+def draw_frame(matrix, on_time=0.001):        
+        for i, row in enumerate(matrix):
+            write_val(np.concatenate((column_mat[i], row)))
+            time.sleep(on_time)
 
 def show(b):
     if not b:
