@@ -63,7 +63,7 @@ def dot_matrix(mat, on_time=0.1):
         write_val(row)
         time.sleep(on_time)
 
-def draw_frame(matrix, on_time=0.001):        
+def draw_frame(matrix, on_time=0.002):        
         for i, row in enumerate(matrix):
             write_val(np.concatenate((column_mat[i], row)))
             time.sleep(on_time)
