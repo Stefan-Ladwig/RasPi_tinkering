@@ -268,7 +268,7 @@ class Gamepad:
             finalValue = value / Gamepad.MAX_AXIS
             self.axisMap[index] = finalValue
             for callback in self.movedEventMap[index]:
-                callback(finalValue)
+                callback(self.axisNames[index], finalValue)
         elif eventType == Gamepad.EVENT_CODE_INIT_BUTTON:
             if value == 0:
                 finalValue = False
